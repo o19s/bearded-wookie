@@ -6,4 +6,4 @@ Some experiments with D3.  Primarily a learning exercise.
 ruby -run -e httpd . -p 9090
 ```
 
-And then brows to http://localhost:9090/bubble/bubble2.html and http://localhost:9090/treemap/
+And then browse to [http://localhost:9090/bubble/bubble2.html](http://localhost:9090/bubble/bubble2.html) and [http://localhost:9090/treemap/](http://localhost:9090/treemap/)

@@ -1,0 +1,185 @@
+{
+    "name": "org.apache.solr.schema.FieldType",
+    "children": [
+        {
+            "name": "org.apache.solr.schema.AbstractSpatialFieldType",
+            "color": "#fcfbfd",
+            "children": [
+                {
+                    "name": "org.apache.solr.schema.AbstractSpatialPrefixTreeFieldType",
+                    "children": [
+                        {
+                            "name": "org.apache.solr.schema.SpatialRecursivePrefixTreeFieldType",
+                            "children": []
+                        },
+                        {
+                            "name": "org.apache.solr.schema.SpatialTermQueryPrefixTreeFieldType",
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "name": "org.apache.solr.schema.BBoxField",
+                    "children": []
+                },
+                {
+                    "name": "org.apache.solr.schema.SpatialPointVectorFieldType",
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "org.apache.solr.schema.AbstractSubTypeFieldType",
+            "color": "ffffd4",
+            "children": [
+                {
+                    "name": "org.apache.solr.schema.CoordinateFieldType",
+                    "children": [
+                        {
+                            "name": "org.apache.solr.schema.PointType",
+                            "children": []
+                        }
+                    ]
+                },
+                {
+                    "name": "org.apache.solr.schema.LatLonType",
+                    "children": []
+                }
+            ]
+        },
+        {
+            "name": "org.apache.solr.schema.BinaryField",
+            "children": []
+        },
+        {
+            "name": "org.apache.solr.schema.CollationField",
+            "children": []
+        },        
+        {
+            "name": "org.apache.solr.schema.CurrencyField",
+            "children": []
+        },    
+        {
+            "name": "org.apache.solr.schema.ExternalFileField",
+            "children": []
+        },    
+        {
+            "name": "org.apache.solr.schema.GeoHashField",
+            "children": []
+        },   
+        {
+            "name": "org.apache.solr.schema.PreAnalyzedField",
+            "children": []
+        },      
+        {
+            "name": "org.apache.solr.schema.PrimitiveFieldType",
+            "children": [
+                {
+                    "name": "org.apache.solr.schema.BCDIntField",
+                    "children": [
+                        {
+                            "name": "org.apache.solr.schema.BCDLongField",
+                            "children": []
+                        },
+                        {
+                            "name": "org.apache.solr.schema.BCDStrField",
+                            "children": []
+                        }                        
+                    ]
+                },
+                {
+                    "name": "org.apache.solr.schema.BoolField",
+                    "children": []
+                },
+                {
+                    "name": "org.apache.solr.schema.ByteField",
+                    "children": []
+                },                
+                {
+                    "name": "org.apache.solr.schema.DateField",
+                    "children": [
+                        {
+                            "name": "org.apache.solr.schema.TrieDateField",
+                            "children": []
+                        }
+                    ]
+                },             
+                                   {
+                    "name": "org.apache.solr.schema.DoubleField",
+                    "children": []
+                },
+                {
+                    "name": "org.apache.solr.schema.EnumField",
+                    "children": []
+                },                
+                {
+                    "name": "org.apache.solr.schema.FloatField",
+                    "children": []
+                },               
+                {
+                    "name": "org.apache.solr.schema.IntField",
+                    "children": []
+                },             
+                {
+                    "name": "org.apache.solr.schema.LongField",
+                    "children": []
+                },          
+                {
+                    "name": "org.apache.solr.schema.ShortField",
+                    "children": []
+                },         
+                {
+                    "name": "org.apache.solr.schema.SortableDoubleField",
+                    "children": []
+                },                
+                {
+                    "name": "org.apache.solr.schema.SortableFloatField",
+                    "children": []
+                },                                 
+                {
+                    "name": "org.apache.solr.schema.SortableIntField",
+                    "children": []
+                },              
+                {
+                    "name": "org.apache.solr.schema.StrField",
+                    "children": [
+                        {
+                            "name": "org.apache.solr.schema.UUIDField",
+                            "children": []
+                        }
+                    ]
+                },         
+                {
+                    "name": "org.apache.solr.schema.TrieField",
+                    "children": [
+                        {
+                            "name": "org.apache.solr.schema.TrieDoubleField",
+                            "children": []
+                        },
+                        {
+                            "name": "org.apache.solr.schema.TrieFloatField",
+                            "children": []
+                        },                        
+                        {
+                            "name": "org.apache.solr.schema.TrieIntField",
+                            "children": []
+                        },                        
+                        {
+                            "name": "org.apache.solr.schema.TrieLongField",
+                            "children": []
+                        }                   
+                    ]
+                }                         
+            ]
+        },          
+        {
+            "name": "org.apache.solr.schema.RandomSortField",
+            "children": []
+        },                                            
+        {
+            "name": "org.apache.solr.schema.TextField",
+            "children": []
+        }
+    ]
+
+}

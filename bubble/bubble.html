@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+text {
+  font: 10px sans-serif;
+}
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript" src="http://underscorejs.org/underscore.js"></script>
+<script>
+
+var margin = {top: 20, right: 20, bottom: 30, left: 40},
+    width = 1000 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var diameter = 960,
+    format = d3.format(",d"),
+    color = d3.scale.category20c();
+
+var bubble = d3.layout.pack()
+    .sort(null)
+    .size([diameter, diameter])
+    .padding(1.5);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", diameter)
+    .attr("height", diameter)
+    .attr("class", "bubble");
+
+var types = [];
+
+
+
+
+
+
+d3.json("us_patent_grant_schema2.json", function(error, root) {
+  var node = svg.selectAll(".node")
+      .data(bubble.nodes(classes(root))
+      .filter(function(d) { return !d.children; }))
+    .enter().append("g")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+      .attr("class", "node")
+      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+
+  // doesn't appear that the title is used.
+  node.append("title")
+      .text(function(d) { return d.className + ": " + format(d.value); });
+
+  node.append("circle")
+      .attr("r", function(d) { return d.r; })
+      .style("fill", function(d) { return color(d.packageName); });
+
+  node.append("text")
+      .attr("dy", ".3em")
+      .style("text-anchor", "middle")
+      .text(function(d) { return d.className.substring(0, d.r / 3); });
+
+
+
+    
+
+var legend = svg.selectAll(".legend")
+      .data(_.uniq(types))
+      .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+legend.append("rect")
+      .attr("x", width - 18)
+      .attr("width", 18)
+      .attr("height", 18)
+      .style("fill", function(d) { return color(d); });      
+
+legend.append("text")
+      .attr("x", width - 24)
+      .attr("y", 9)
+      .attr("dy", ".35em")
+      .style("text-anchor", "end")
+      .text(function(d) { return d; });      
+
+});
+
+// Returns a flattened hierarchy containing all leaf nodes under the root.
+function classes(root) {
+  var classes = [];
+
+  function recurse(name, node) {
+    if (node.children) {
+      node.children.forEach(function(child) { recurse(node.name, child); });
+    }
+    else {
+      classes.push({packageName: name, className: node.name, value: node.size});
+      types.push(name);
+    }
+  }
+
+  recurse(null, root);
+  return {children: classes};
+}
+
+d3.select(self.frameElement).style("height", diameter + "px");
+
+</script>

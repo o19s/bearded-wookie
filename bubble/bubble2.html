@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+text {
+  font: 10px sans-serif;
+}
+
+</style>
+<body>
+<!-- code inspired by
+	https://github.com/GrinnellCollegeLibraries/Pivot_to_Flare/blob/master/pivot_to_flare.html
+
+-->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript" src="http://underscorejs.org/underscore.js"></script>
+<script>
+
+var flareData = new Object();  // flare is the name of the D3 data format.
+ 
+
+
+var margin = {top: 20, right: 20, bottom: 30, left: 40},
+    width = 1000 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var diameter = 960,
+    format = d3.format(",d"),
+    color = d3.scale.category20c();
+
+var bubble = d3.layout.pack()
+    .sort(null)
+    .size([diameter, diameter])
+    .padding(1.5);
+
+var svg = d3.select("body").append("svg")
+    .attr("width", diameter)
+    .attr("height", diameter)
+    .attr("class", "bubble");
+
+var types = [];
+
+
+
+
+function stripTrailingSlash(str) {
+    if(str.substr(-1) == '/') {
+        return str.substr(0, str.length - 1);
+    }
+    return str;
+}
+
+// Returns a flattened hierarchy containing all leaf nodes under the root.
+function classes(root) {
+  var classes = [];
+  var bubble_fields = [];
+
+
+
+  var sortedFields = _.sortBy(root.fields, function(field){ /*console.log(Object.keys(field)); */return field.type })
+	
+  _.keys(root.fields).forEach( function(field){
+	//console.log ("root.fields: " + field + ": " + root.fields[field].distinct + " - " + root.fields[field].type);
+
+	var bubble_field = {field: field, size: root.fields[field].distinct, fieldType: root.fields[field].type };
+	types.push (bubble_field.fieldType);
+	if (_.isUndefined(bubble_field.size)){
+		bubble_field.size = 10;
+	}
+	bubble_fields.push (bubble_field)
+  });
+
+  console.log("bubble_fields1 " + bubble_fields[0].fieldType);
+  bubble_fields = _.sortBy(bubble_fields, function(f){ return f.fieldType; });
+  console.log("bubble_fields2 " + bubble_fields[0].fieldType);
+
+  var packageName = bubble_fields[0].fieldType;  // set the first package name.
+  _.each(bubble_fields, function(f) { 
+  	classes.push({packageName: f.fieldType, className: f.field, value: f.size});
+  	//console.log(f)
+  });
+
+  return {children: classes};
+}
+
+d3.select(self.frameElement).style("height", diameter + "px");
+
+
+</script>
+
+
+
+<form id="solrUrlForm">
+Solr Url: <input type="text" size="60" name="solrUrl" id="solrUrl" value="http://localhost:8983/solr"/>
+<input type="submit" value="Go"/>
+</form>
+
+<script>
+
+$("#solrUrlForm").submit(function() {
+
+    var url = stripTrailingSlash($("#solrUrl").val()) + "/admin/luke?wt=json&fl=*"; // the Solr Url.
+    //alert("hi");
+$.ajax({
+  url: url,
+  dataType: 'jsonp',
+  jsonp: 'json.wrf'
+  }).done(function(data) {
+	
+	var flareDataChildren = new Array();
+	$.each(data.fields, function(fieldName, fieldData) {
+	  var bubble_field = {field: fieldName, size: fieldData.distinct, fieldType: fieldData.type };
+	  types.push (bubble_field.fieldType);
+	  if (_.isUndefined(bubble_field.size)){
+		bubble_field.size = 10;
+	  }
+	  flareDataChildren.push({packageName: bubble_field.fieldType, className: bubble_field.field, value: bubble_field.size});				
+	});
+	flareData.name = "flare";
+	flareData.children = flareDataChildren;
+	  
+
+
+  var node = svg.selectAll(".node")
+      .data(bubble.nodes(flareData)
+      .filter(function(d) { return !d.children; }))
+    .enter().append("g")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+      .attr("class", "node")
+      .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+
+  // doesn't appear that the title is used.
+  node.append("title")
+      .text(function(d) { return d.className + ": " + format(d.value) + " terms"; });
+
+  node.append("circle")
+      .attr("r", function(d) { return d.r; })
+      .style("fill", function(d) { return color(d.packageName); });
+
+  node.append("text")
+      .attr("dy", ".3em")
+      .style("text-anchor", "middle")
+      .text(function(d) { return d.className.substring(0, d.r / 3); });
+
+
+
+    
+
+var legend = svg.selectAll(".legend")
+      .data(_.uniq(types))
+      .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+legend.append("rect")
+      .attr("x", width - 18)
+      .attr("width", 18)
+      .attr("height", 18)
+      .style("fill", function(d) { return color(d); });      
+
+legend.append("text")
+      .attr("x", width - 24)
+      .attr("y", 9)
+      .attr("dy", ".35em")
+      .style("text-anchor", "end")
+      .text(function(d) { return d; });      
+
+});   
+
+    return false; // avoid to execute the actual submit of the form.
+});
+</script>
+</body>

@@ -1,7 +1,9 @@
 Some experiments with [D3](http://d3js.org) in visualizing details of a Lucene index via the Solr APIs.  Primarily a learning exercise.
 
+![Bubble Map](opensourceconnections_com_bearded-wookie_bubble_bubble2_html.png)
 The bubble map shows you how many terms there are per field.
 
+![](opensourceconnections_com_bearded-wookie_treemap_.png)
 The treemap example was more ambitious and came out in response to someone asking me for a "schema" diagram like you would have for a traditional relational database.  Since we have just a single wide table, what could I show?   In the demo I show each field, with a color coding grouping of the hierarchy of field types, as Solr understands them.  For example, a `TrieLongField` is a subclass of a `TrieField`.   The size of the box shows you how big the field is in relationship to overall field size.
 
 The Terms option shows you the term count per field in relationship to all the other fields.

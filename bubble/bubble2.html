@@ -16,6 +16,12 @@ text {
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script type="text/javascript" src="http://underscorejs.org/underscore.js"></script>
+
+<form id="solrUrlForm">
+Solr Url: <input type="text" size="60" name="solrUrl" id="solrUrl" value="http://ec2-54-88-220-173.compute-1.amazonaws.com/solr/statedecoded"/>
+<input type="submit" value="Go"/>
+</form>
+
 <script>
 
 var flareData = new Object();  // flare is the name of the D3 data format.
@@ -92,10 +98,7 @@ d3.select(self.frameElement).style("height", diameter + "px");
 
 
 
-<form id="solrUrlForm">
-Solr Url: <input type="text" size="60" name="solrUrl" id="solrUrl" value="http://localhost:8983/solr"/>
-<input type="submit" value="Go"/>
-</form>
+
 
 <script>
 

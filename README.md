@@ -13,7 +13,7 @@ The All Fields option shows you all the fields that you have defined in your `sc
 The Memory option attempts to use the rules that are defined in this Memory calculator spreadsheet:
 [https://svn.apache.org/repos/asf/lucene/dev/trunk/dev-tools/size-estimator-lucene-solr.xls](https://svn.apache.org/repos/asf/lucene/dev/trunk/dev-tools/size-estimator-lucene-solr.xls)   It's not perfect though!
 
-A online demo is posted at [http://opensourceconnections.com/bearded-wookie/](http://opensourceconnections.com/bearded-wookie/)
+Online demo of [bubble map](http://opensourceconnections.com/bearded-wookie/bubble/bubble2.html) and [treemap](http://opensourceconnections.com/bearded-wookie/treemap/) are posted.
 
 
 ## How to run locally

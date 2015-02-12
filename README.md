@@ -16,7 +16,7 @@ The treemap experiment was more ambitious and came out in response to a "data ma
 
 After scratching my head for while on what I could give them that wasn't just a single "table", and looking like a snarky jerk, I figured how about better understanding all the various field types that make up a Lucene index.   Even better would be to organize the types according to their object hierarchy.  For bonus points, I tried to also give a sense not just of term count, but of how much memory each field would take up.
 
-![](opensourceconnections_com_bearded-wookie_treemap_.png)
+![](tree_map_screenshot.png)
 
 In the tree map I show each field, with a colour coded organization of the hierarchy of field types, as Solr understands them.  For example, a `TrieLongField` is a subclass of a `TrieField`.   The size of the box shows you how many terms make up the field in relationship to overall term count size.
 
@@ -26,6 +26,10 @@ The Memory option attempts to use the rules that are defined in this Memory calc
 [https://svn.apache.org/repos/asf/lucene/dev/trunk/dev-tools/size-estimator-lucene-solr.xls](https://svn.apache.org/repos/asf/lucene/dev/trunk/dev-tools/size-estimator-lucene-solr.xls)   It's not perfect though!
 
 [Play with the treemap demo here](http://opensourceconnections.com/bearded-wookie/treemap/).
+
+A huge vote of appreciation to [Julia Bauder](https://github.com/julia-bauder) for her project [Pivot to Flare](https://github.com/GrinnellCollegeLibraries/Pivot_to_Flare) that got me much of the way on the tree map. 
+
+Also, check out what Erik Hatcher [has done with tree maps and Solr](https://twitter.com/ErikHatcher/status/539818364018118656).
 
 
 ## How to run locally
@@ -39,3 +43,6 @@ ruby -run -e httpd . -p 9090
 ```
 
 And then browse to [http://localhost:9090/bubble/bubble2.html](http://localhost:9090/bubble/bubble2.html) and [http://localhost:9090/treemap/](http://localhost:9090/treemap/)
+
+Shoot feedback to me at epugh@opensourceconnections.com or [@dep4b](http://twitter.com/dep4b).
+

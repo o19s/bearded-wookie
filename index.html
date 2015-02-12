@@ -424,28 +424,53 @@ pre[class*="language-"] {
 </style>
 </head>
 <body>
-<p>Some experiments with <a href="http://d3js.org">D3</a> in visualizing details of a Lucene index via the Solr APIs.  Primarily a learning exercise.</p>
+<h1 id="toc_0">Bearded Wookie: Experiments in Visualizing Lucene</h1>
 
-<p><img src="opensourceconnections_com_bearded-wookie_bubble_bubble2_html.png" alt="Bubble Map"><br>
-The bubble map shows you how many terms there are per field.</p>
+<p>These are some experiments with <a href="http://d3js.org">D3</a> in visualizing details of a Lucene index via the Solr APIs.  Primarily a learning exercise for me to learn JavaScript, especially Ajax calls, and dip my toes into D3.   Each of the experiments is based heavily on work that other folks have done!</p>
 
-<p><img src="opensourceconnections_com_bearded-wookie_treemap_.png" alt=""><br>
-The treemap example was more ambitious and came out in response to someone asking me for a &quot;schema&quot; diagram like you would have for a traditional relational database.  Since we have just a single wide table, what could I show?   In the demo I show each field, with a color coding grouping of the hierarchy of field types, as Solr understands them.  For example, a <code>TrieLongField</code> is a subclass of a <code>TrieField</code>.   The size of the box shows you how big the field is in relationship to overall field size.</p>
+<h2 id="toc_1">Bubble Map</h2>
 
-<p>The Terms option shows you the term count per field in relationship to all the other fields.</p>
+<p>The bubble map shows you how many terms there are per field.  The colors let you get a sense of which field types contain the most terms.  The name of each field is in the center of the bubble.   The layout is random, there isn&#39;t any meaning to where the bubbles are placed.  The colours are also laid out to be in a logical range, but internally have no meaning.  Hence dark blue is <code>long</code> and light blue is <code>string</code>.<br>
+<img src="bubble_chart_screenshot.png" alt="Bubble Map"></p>
 
-<p>The All Fields option shows you all the fields that you have defined in your <code>schema.xml</code>, and lets you see what fields you define but don&#39;t use.</p>
+<p><a href="http://opensourceconnections.com/bearded-wookie/bubble/bubble2.html">Play with the demo here</a></p>
+
+<h2 id="toc_2">Treemap</h2>
+
+<p>The treemap experiment was more ambitious and came out in response to a &quot;data management&quot; person asking me:</p>
+
+<blockquote>
+<p>Can I have the entity relatinoship diagram for Solr?</p>
+</blockquote>
+
+<p>After scratching my head for while on what I could give them that wasn&#39;t just a single &quot;table&quot;, and looking like a snarky jerk, I figured how about better understanding all the various field types that make up a Lucene index.   Even better would be to organize the types according to their object hierarchy.  For bonus points, I tried to also give a sense not just of term count, but of how much memory each field would take up.</p>
+
+<p><img src="tree_map_screenshot.png" alt=""></p>
+
+<p>In the tree map I show each field, with a colour coded organization of the hierarchy of field types, as Solr understands them.  For example, a <code>TrieLongField</code> is a subclass of a <code>TrieField</code>.   The size of the box shows you how many terms make up the field in relationship to overall term count size.</p>
+
+<p>The All Fields option shows you all the fields that you have defined in your <code>schema.xml</code>, and lets you see what fields you define but don&#39;t actually use.</p>
 
 <p>The Memory option attempts to use the rules that are defined in this Memory calculator spreadsheet:<br>
 <a href="https://svn.apache.org/repos/asf/lucene/dev/trunk/dev-tools/size-estimator-lucene-solr.xls">https://svn.apache.org/repos/asf/lucene/dev/trunk/dev-tools/size-estimator-lucene-solr.xls</a>   It&#39;s not perfect though!</p>
 
-<p>Online demo of <a href="http://opensourceconnections.com/bearded-wookie/bubble/bubble2.html">bubble map</a> and <a href="http://opensourceconnections.com/bearded-wookie/treemap/">treemap</a> are posted.</p>
+<p><a href="http://opensourceconnections.com/bearded-wookie/treemap/">Play with the treemap demo here</a>.</p>
 
-<h2 id="toc_0">How to run locally</h2>
+<p>A huge vote of appreciation to <a href="https://github.com/julia-bauder">Julia Bauder</a> for her project <a href="https://github.com/GrinnellCollegeLibraries/Pivot_to_Flare">Pivot to Flare</a> that got me much of the way on the tree map. </p>
+
+<p>Also, check out what Erik Hatcher <a href="https://twitter.com/ErikHatcher/status/539818364018118656">has done with tree maps and Solr</a>.</p>
+
+<h2 id="toc_3">How to run locally</h2>
+
+<p>Check the project out from GitHub at <a href="https://github.com/o19s/bearded-wookie">https://github.com/o19s/bearded-wookie</a></p>
+
+<p>Start up a locally running server via:</p>
 
 <pre><code class="language-bash">ruby -run -e httpd . -p 9090</code></pre>
 
 <p>And then browse to <a href="http://localhost:9090/bubble/bubble2.html">http://localhost:9090/bubble/bubble2.html</a> and <a href="http://localhost:9090/treemap/">http://localhost:9090/treemap/</a></p>
+
+<p>Shoot feedback to me at <a href="mailto:epugh@opensourceconnections.com">epugh@opensourceconnections.com</a> or <a href="http://twitter.com/dep4b">@dep4b</a>.</p>
 
 <script type="text/javascript">
 self="undefined"!=typeof window?window:"undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?self:{};var Prism=function(){var e=/\blang(?:uage)?-(?!\*)(\w+)\b/i,t=self.Prism={util:{encode:function(e){return e instanceof n?new n(e.type,t.util.encode(e.content),e.alias):"Array"===t.util.type(e)?e.map(t.util.encode):e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\u00a0/g," ")},type:function(e){return Object.prototype.toString.call(e).match(/\[object (\w+)\]/)[1]},clone:function(e){var n=t.util.type(e);switch(n){case"Object":var a={};for(var r in e)e.hasOwnProperty(r)&&(a[r]=t.util.clone(e[r]));return a;case"Array":return e.map(function(e){return t.util.clone(e)})}return e}},languages:{extend:function(e,n){var a=t.util.clone(t.languages[e]);for(var r in n)a[r]=n[r];return a},insertBefore:function(e,n,a,r){r=r||t.languages;var i=r[e];if(2==arguments.length){a=arguments[1];for(var l in a)a.hasOwnProperty(l)&&(i[l]=a[l]);return i}var o={};for(var s in i)if(i.hasOwnProperty(s)){if(s==n)for(var l in a)a.hasOwnProperty(l)&&(o[l]=a[l]);o[s]=i[s]}return t.languages.DFS(t.languages,function(t,n){n===r[e]&&t!=e&&(this[t]=o)}),r[e]=o},DFS:function(e,n,a){for(var r in e)e.hasOwnProperty(r)&&(n.call(e,r,e[r],a||r),"Object"===t.util.type(e[r])?t.languages.DFS(e[r],n):"Array"===t.util.type(e[r])&&t.languages.DFS(e[r],n,r))}},highlightAll:function(e,n){for(var a,r=document.querySelectorAll('code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'),i=0;a=r[i++];)t.highlightElement(a,e===!0,n)},highlightElement:function(a,r,i){for(var l,o,s=a;s&&!e.test(s.className);)s=s.parentNode;if(s&&(l=(s.className.match(e)||[,""])[1],o=t.languages[l]),o){a.className=a.className.replace(e,"").replace(/\s+/g," ")+" language-"+l,s=a.parentNode,/pre/i.test(s.nodeName)&&(s.className=s.className.replace(e,"").replace(/\s+/g," ")+" language-"+l);var g=a.textContent;if(g){g=g.replace(/^(?:\r?\n|\r)/,"");var u={element:a,language:l,grammar:o,code:g};if(t.hooks.run("before-highlight",u),r&&self.Worker){var c=new Worker(t.filename);c.onmessage=function(e){u.highlightedCode=n.stringify(JSON.parse(e.data),l),t.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,i&&i.call(u.element),t.hooks.run("after-highlight",u)},c.postMessage(JSON.stringify({language:u.language,code:u.code}))}else u.highlightedCode=t.highlight(u.code,u.grammar,u.language),t.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,i&&i.call(a),t.hooks.run("after-highlight",u)}}},highlight:function(e,a,r){var i=t.tokenize(e,a);return n.stringify(t.util.encode(i),r)},tokenize:function(e,n){var a=t.Token,r=[e],i=n.rest;if(i){for(var l in i)n[l]=i[l];delete n.rest}e:for(var l in n)if(n.hasOwnProperty(l)&&n[l]){var o=n[l];o="Array"===t.util.type(o)?o:[o];for(var s=0;s<o.length;++s){var g=o[s],u=g.inside,c=!!g.lookbehind,f=0,h=g.alias;g=g.pattern||g;for(var p=0;p<r.length;p++){var d=r[p];if(r.length>e.length)break e;if(!(d instanceof a)){g.lastIndex=0;var m=g.exec(d);if(m){c&&(f=m[1].length);var y=m.index-1+f,m=m[0].slice(f),v=m.length,k=y+v,b=d.slice(0,y+1),w=d.slice(k+1),O=[p,1];b&&O.push(b);var N=new a(l,u?t.tokenize(m,u):m,h);O.push(N),w&&O.push(w),Array.prototype.splice.apply(r,O)}}}}}return r},hooks:{all:{},add:function(e,n){var a=t.hooks.all;a[e]=a[e]||[],a[e].push(n)},run:function(e,n){var a=t.hooks.all[e];if(a&&a.length)for(var r,i=0;r=a[i++];)r(n)}}},n=t.Token=function(e,t,n){this.type=e,this.content=t,this.alias=n};if(n.stringify=function(e,a,r){if("string"==typeof e)return e;if("[object Array]"==Object.prototype.toString.call(e))return e.map(function(t){return n.stringify(t,a,e)}).join("");var i={type:e.type,content:n.stringify(e.content,a,r),tag:"span",classes:["token",e.type],attributes:{},language:a,parent:r};if("comment"==i.type&&(i.attributes.spellcheck="true"),e.alias){var l="Array"===t.util.type(e.alias)?e.alias:[e.alias];Array.prototype.push.apply(i.classes,l)}t.hooks.run("wrap",i);var o="";for(var s in i.attributes)o+=s+'="'+(i.attributes[s]||"")+'"';return"<"+i.tag+' class="'+i.classes.join(" ")+'" '+o+">"+i.content+"</"+i.tag+">"},!self.document)return self.addEventListener?(self.addEventListener("message",function(e){var n=JSON.parse(e.data),a=n.language,r=n.code;self.postMessage(JSON.stringify(t.util.encode(t.tokenize(r,t.languages[a])))),self.close()},!1),self.Prism):self.Prism;var a=document.getElementsByTagName("script");return a=a[a.length-1],a&&(t.filename=a.src,document.addEventListener&&!a.hasAttribute("data-manual")&&document.addEventListener("DOMContentLoaded",t.highlightAll)),self.Prism}();"undefined"!=typeof module&&module.exports&&(module.exports=Prism);

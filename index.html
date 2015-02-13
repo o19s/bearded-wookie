@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Bearded-wookie by o19s</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Bearded-wookie</h1>
+        <p class="header">An experiment in visualizing your Solr index via term counts, document counts, and memory usage per field and data type.</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/o19s/bearded-wookie/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/o19s/bearded-wookie/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/o19s/bearded-wookie">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/o19s">o19s</a></p>
+
+
+      </header>
+      <section>
+        <hr>
+
+<hr>
+
+<h1>
+<a id="bearded-wookie-experiments-in-visualizing-lucene" class="anchor" href="#bearded-wookie-experiments-in-visualizing-lucene" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bearded Wookie: Experiments in Visualizing Lucene</h1>
+
+<p>These are some experiments with <a href="http://d3js.org">D3</a> in visualizing details of a Lucene index via the Solr APIs.  Primarily a learning exercise for me to learn JavaScript, especially Ajax calls, and dip my toes into D3.   Each of the experiments is based heavily on work that other folks have done!</p>
+
+<h2>
+<a id="bubble-map" class="anchor" href="#bubble-map" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bubble Map</h2>
+
+<p>The bubble map shows you how many terms there are per field.  The colors let you get a sense of which field types contain the most terms.  The name of each field is in the center of the bubble.   The layout is random, there isn't any meaning to where the bubbles are placed.  The colours are also laid out to be in a logical range, but internally have no meaning.  Hence dark blue is <code>long</code> and light blue is <code>string</code>.
+<img src="bubble_chart_screenshot.png" alt="Bubble Map"></p>
+
+<p><a href="http://opensourceconnections.com/bearded-wookie/bubble/bubble2.html">Play with the demo here</a></p>
+
+<h2>
+<a id="treemap" class="anchor" href="#treemap" aria-hidden="true"><span class="octicon octicon-link"></span></a>Treemap</h2>
+
+<p>The treemap experiment was more ambitious and came out in response to a "data management" person asking me:</p>
+
+<blockquote>
+<p>Can I have the entity relatinoship diagram for Solr?</p>
+</blockquote>
+
+<p>After scratching my head for while on what I could give them that wasn't just a single "table", and looking like a snarky jerk, I figured how about better understanding all the various field types that make up a Lucene index.   Even better would be to organize the types according to their object hierarchy.  For bonus points, I tried to also give a sense not just of term count, but of how much memory each field would take up.</p>
+
+<p><img src="tree_map_screenshot.png" alt=""></p>
+
+<p>In the tree map I show each field, with a colour coded organization of the hierarchy of field types, as Solr understands them.  For example, a <code>TrieLongField</code> is a subclass of a <code>TrieField</code>.   The size of the box shows you how many terms make up the field in relationship to overall term count size.</p>
+
+<p>The All Fields option shows you all the fields that you have defined in your <code>schema.xml</code>, and lets you see what fields you define but don't actually use.</p>
+
+<p>The Memory option attempts to use the rules that are defined in this Memory calculator spreadsheet:
+<a href="https://svn.apache.org/repos/asf/lucene/dev/trunk/dev-tools/size-estimator-lucene-solr.xls">https://svn.apache.org/repos/asf/lucene/dev/trunk/dev-tools/size-estimator-lucene-solr.xls</a>   It's not perfect though!</p>
+
+<p><a href="http://opensourceconnections.com/bearded-wookie/treemap/">Play with the treemap demo here</a>.</p>
+
+<p>A huge vote of appreciation to <a href="https://github.com/julia-bauder">Julia Bauder</a> for her project <a href="https://github.com/GrinnellCollegeLibraries/Pivot_to_Flare">Pivot to Flare</a> that got me much of the way on the tree map. </p>
+
+<p>Also, check out what Erik Hatcher <a href="https://twitter.com/ErikHatcher/status/539818364018118656">has done with tree maps and Solr</a>.</p>
+
+<h2>
+<a id="how-to-run-locally" class="anchor" href="#how-to-run-locally" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to run locally</h2>
+
+<p>Check the project out from GitHub at <a href="https://github.com/o19s/bearded-wookie">https://github.com/o19s/bearded-wookie</a></p>
+
+<p>Start up a locally running server via:</p>
+
+<div class="highlight highlight-bash"><pre>ruby -run -e httpd <span class="pl-s3">.</span> -p 9090</pre></div>
+
+<p>And then browse to <a href="http://localhost:9090/bubble/bubble2.html">http://localhost:9090/bubble/bubble2.html</a> and <a href="http://localhost:9090/treemap/">http://localhost:9090/treemap/</a></p>
+
+<p>Shoot feedback to me at <a href="mailto:epugh@opensourceconnections.com">epugh@opensourceconnections.com</a> or <a href="http://twitter.com/dep4b">@dep4b</a>.</p>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="http://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>

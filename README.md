@@ -1,3 +1,5 @@
+---
+---
 # Bearded Wookie: Experiments in Visualizing Lucene
 
 These are some experiments with [D3](http://d3js.org) in visualizing details of a Lucene index via the Solr APIs.  Primarily a learning exercise for me to learn JavaScript, especially Ajax calls, and dip my toes into D3.   Each of the experiments is based heavily on work that other folks have done!
